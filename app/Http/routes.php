@@ -14,12 +14,13 @@
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
-	return view('auth.login');
 
+    return view('auth.login');
 
 });
 Route::get('/admin', function () {
-	return view('admin.index');
+
+    return view('admin.index');
 
 
 });
@@ -30,4 +31,12 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource('admin/users', 'AdminUsersController');
+Route::group(['middleware' =>'admin'], function (){
+
+
+    Route::resource('admin/users', 'AdminUsersController');
+
+    Route::resource('admin/posts', 'AdminPostsController');
+
+});
+
